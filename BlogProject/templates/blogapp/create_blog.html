@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block titleblock %}
+    Create Blog
+{% endblock titleblock %}
+
+{% block bodyblock  %}
+    <h1 style="text-decoration: underline; font-style: italic; font-weight: bold;">Create Your Blog!</h1>
+    <form method="post" enctype="multipart/form-data">
+        {%csrf_token%}
+        {{form.as_p}}
+        <button class="btn btn-outline-success">Create!</button>
+    </form>
+{% endblock  %}

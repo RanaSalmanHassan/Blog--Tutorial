@@ -1,0 +1,78 @@
+{%extends 'base.html'%}
+
+{%block titleblock%}
+USER PROFILE
+{%endblock%}
+
+{%block bodyblock%}
+<style>
+    body{
+        background-color: lightgray;
+    }
+    .upper-main-div {
+        margin-right: 100px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+    img{
+        width: 200px;
+        height: 250px;
+        border-radius: 100px;
+    }
+    .img-div{
+        margin-right: 200px;
+        margin-left: 0;
+    }
+    h3{
+        font-size: 65px;
+    }
+    h5{
+        font-size: 30px;
+    }
+    .no-blogs{
+        position: fixed;
+        bottom: 200px;
+        right: 200px;
+        left: 400px;
+        font-size: 45px;
+    }
+    .no-blogs:hover{
+        font-style: italic;
+    }
+    .edit-profile{
+        position: fixed;
+        right: 25px;
+        top: 100px;
+    }
+</style>
+<a href="{%url 'loginapp:edit_profile'%}"><button class="btn btn-outline-warning edit-profile">Edit Profile</button></a>
+<div class="upper-main-div">
+    <div class="img-div">
+        {%if user.user_profile.profile_pic%}
+        <img src="/media/profile_pics/{{user.user_profile.profile_pic}}" alt="">
+        {%else%}
+        <img src="/media/profile_pics/user.png" alt="">
+        {%endif%}
+    </div>  
+    <div class="desc-div">
+        <div class="heading">
+            <h3>Likes : 0 &nbsp; Blogs : 0</h3>
+        </div>
+        <div class="description">
+            <h5>Username : {{user.username}}</h5>
+            <h5>First Name : {{user.user_profile.first_name}}</h5>
+            <h5>Last Name : {{user.user_profile.last_name}}</h5>
+            <h5>Contact Number : {{user.user_profile.phone_number}}</h5>
+            <h5>Website : {{user.user_profile.website}}</h5>
+        </div>
+    </div>
+
+</div>
+<div class="down-div">
+    <h4 class="no-blogs">
+        NO BLOGS POSTED!
+    </h4>
+</div>
+{%endblock%}

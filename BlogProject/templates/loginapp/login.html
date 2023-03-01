@@ -1,0 +1,81 @@
+{% extends 'base.html'%}
+{%block titleblock%}
+Login!
+{%endblock%}
+{%block bodyblock%}
+
+
+
+<style>
+    body {
+        background-image: url('/media/extra_pics/background.jpeg');
+    }
+
+    .main-div {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 150px;
+        background-color: burlywood;
+        border: 1px solid lightgray;
+        margin-left: 200px;
+        margin-right: 200px;
+        padding-bottom: 50px;
+        border-radius: 20px;
+    }
+
+    .heading {
+        font-weight: bold;
+        font-style: italic;
+        text-decoration: underline;
+    }
+
+    .heading-div {
+        margin-bottom: 30px;
+    }
+
+    .username-div {
+        margin-bottom: 50px;
+    }
+
+    .link {
+        font-size: 25px;
+    }
+
+    .link:hover {
+        font-weight: bold;
+    }
+
+    .link:active {
+        font-style: italic;
+    }
+
+    .link-to-sign-up-div {
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+</style>
+
+<form method="post">
+    {%csrf_token%}
+
+    <div class="main-div">
+        <div class="heading-div">
+            <h1 class="heading">Login Into Your Account!</h1>
+        </div>
+        <div class="username-div">
+            Username : {{form.username}}
+        </div>
+        <div class="password-div">
+            Password : {{form.password}}
+        </div>
+        <div class="link-to-sign-up-div">
+            <a href="{%url 'loginapp:signup'%}" class="link">Don`t Have an account!</a>
+        </div>
+        <div class="login-button-div">
+            <button type="submit" class="btn btn-outline-success">Login</button>
+        </div>
+    </div>
+</form>
+{%endblock%}
