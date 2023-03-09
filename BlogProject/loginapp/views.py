@@ -6,6 +6,8 @@ from django.shortcuts import render,HttpResponse,HttpResponseRedirect
 from django.urls import reverse
 from .models import UserProfile
 from django.contrib.auth.decorators import login_required
+
+from blogapp.models import Blog_Model
 # Create your views here.
 
 
@@ -36,10 +38,14 @@ def login_page(request):
     dict = {'form': form}
     return render(request, 'loginapp/login.html', dict)
 
+@login_required(login_url='loginapp:login')
 def user_profile(request):
-    return render(request,'loginapp/profile.html')
+    current_user = request.user
+    blogs = Blog_Model.objects.filter(author=current_user)
+    dict = {'blogs':blogs}
+    return render(request,'loginapp/profile.html',dict)
 
-@login_required
+@login_required(login_url='loginapp:login')
 def edit_profile(request):
     current_user = UserProfile.objects.get(user=request.user)
     form = Edit_Profile_Form(instance=current_user)

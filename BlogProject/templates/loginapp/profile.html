@@ -6,9 +6,10 @@ USER PROFILE
 
 {%block bodyblock%}
 <style>
-    body{
+    body {
         background-color: lightgray;
     }
+
     .upper-main-div {
         margin-right: 100px;
         display: flex;
@@ -16,35 +17,47 @@ USER PROFILE
         justify-content: center;
         align-items: center;
     }
-    img{
+
+    img {
         width: 200px;
         height: 250px;
         border-radius: 100px;
     }
-    .img-div{
+
+    .img-div {
         margin-right: 200px;
         margin-left: 0;
     }
-    h3{
+
+    h3 {
         font-size: 65px;
     }
-    h5{
+
+    h5 {
         font-size: 30px;
     }
-    .no-blogs{
-        position: fixed;
-        bottom: 200px;
-        right: 200px;
-        left: 400px;
-        font-size: 45px;
-    }
-    .no-blogs:hover{
+
+    .no-blogs:hover {
         font-style: italic;
     }
-    .edit-profile{
+
+    .edit-profile {
         position: fixed;
         right: 25px;
         top: 100px;
+    }
+
+    .down-div {
+        margin-top: 100px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        margin-left: 75px;
+    }
+    .blog_image{
+        border-radius: 0;
+        height: 200px;
+        width: 200px;
     }
 </style>
 <a href="{%url 'loginapp:edit_profile'%}"><button class="btn btn-outline-warning edit-profile">Edit Profile</button></a>
@@ -55,7 +68,7 @@ USER PROFILE
         {%else%}
         <img src="/media/profile_pics/user.png" alt="">
         {%endif%}
-    </div>  
+    </div>
     <div class="desc-div">
         <div class="heading">
             <h3>Likes : 0 &nbsp; Blogs : 0</h3>
@@ -71,8 +84,16 @@ USER PROFILE
 
 </div>
 <div class="down-div">
-    <h4 class="no-blogs">
-        NO BLOGS POSTED!
-    </h4>
+
+    {%if blogs%}
+    <h1 style="text-decoration: underline; font-weight: bold; font-style: oblique;">Blogs</h1>
+    <hr>
+    {%for blog in blogs%}
+    <img src="/media/{{blog.image}}" class="blog_image">
+    {%endfor%}
+    {%else%}
+    <h3>NO BLOGS POSTED</h3>
+    {%endif%}
+
 </div>
 {%endblock%}
