@@ -1,6 +1,10 @@
 from django.shortcuts import render,HttpResponse
+from django.urls import reverse_lazy
 from .forms import Create_Blog_Form
 from django.contrib.auth.decorators import login_required
+from django.views.generic import UpdateView,DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from .models import Blog_Model
 # Create your views here.
 @login_required(login_url='loginapp:login')
 def Create_Blog(request):
@@ -15,3 +19,19 @@ def Create_Blog(request):
         
     dict = {'form':form}
     return render(request,'blogapp/create_blog.html',dict)
+
+class Edit_Blog(LoginRequiredMixin,UpdateView):
+    model = Blog_Model
+    fields = ('title','image','description','category')
+    template_name = ('blogapp/edit_blog.html')
+
+    def get_success_url(self):
+        return reverse_lazy('loginapp:user_profile')
+
+
+class Delete_Blog(LoginRequiredMixin,DeleteView):
+    model = Blog_Model
+    template_name = ('blogapp/delete_blog.html')
+
+    def get_success_url(self):
+        return reverse_lazy('loginapp:user_profile')

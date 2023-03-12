@@ -90,6 +90,8 @@ USER PROFILE
     <hr>
     {%for blog in blogs%}
     <img src="/media/{{blog.image}}" class="blog_image">
+    <a href="{%url 'blogapp:edit_blog' pk=blog.pk%}"><button class="btn btn-outline-warning">Edit</button></a>
+    <a href="{%url 'blogapp:delete_blog' pk=blog.pk%}"><button class="btn btn-outline-danger">Delete</button></a>
     {%endfor%}
     {%else%}
     <h3>NO BLOGS POSTED</h3>
