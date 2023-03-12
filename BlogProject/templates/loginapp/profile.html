@@ -89,7 +89,7 @@ USER PROFILE
     <h1 style="text-decoration: underline; font-weight: bold; font-style: oblique;">Blogs</h1>
     <hr>
     {%for blog in blogs%}
-    <img src="/media/{{blog.image}}" class="blog_image">
+    <a href="{%url 'blogapp:blog_details' pk=blog.pk%}"><img src="/media/{{blog.image}}" class="blog_image"></a>
     <a href="{%url 'blogapp:edit_blog' pk=blog.pk%}"><button class="btn btn-outline-warning">Edit</button></a>
     <a href="{%url 'blogapp:delete_blog' pk=blog.pk%}"><button class="btn btn-outline-danger">Delete</button></a>
     {%endfor%}

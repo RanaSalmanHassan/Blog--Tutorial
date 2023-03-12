@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block titleblock %}
+Blog Details
+{% endblock titleblock %}
+
+{% block bodyblock %}
+
+<style>
+    .main-div {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .heading-div {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .title{
+        font-size: 60px;
+        font-weight: bold;
+        text-decoration: underline;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+    }
+    .category,.date{
+        padding-left: 0;
+        margin-left: 0;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        font-size: 30px;
+    }
+    
+    .category-span{
+        color: aqua;
+    }
+
+    .date_added{
+        color: lightgray;
+    }
+    .body-div{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 60px;
+    }
+    .image{
+        height: 450px;
+        width: 855px;
+        margin-bottom: 50px;
+    }
+</style>
+
+<div class="main-div">
+    <div class="heading-div">
+        <span class="title">{{object.title}}</span>
+        <span class="category">Category : <span class="category-span">{{object.category}}</span></span>
+        <span class="date">Date Published : <span class="date_added">{{object.date_added}}</span></span>
+    </div>
+    <div class="body-div">
+        <img src="/media/{{object.image}}" class="image">
+        <span>{{object.description}}</span>
+
+    </div>
+
+</div>
+{% endblock bodyblock %}

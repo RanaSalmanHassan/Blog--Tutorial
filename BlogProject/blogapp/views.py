@@ -2,7 +2,7 @@ from django.shortcuts import render,HttpResponse
 from django.urls import reverse_lazy
 from .forms import Create_Blog_Form
 from django.contrib.auth.decorators import login_required
-from django.views.generic import UpdateView,DeleteView
+from django.views.generic import UpdateView,DeleteView,DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Blog_Model
 # Create your views here.
@@ -35,3 +35,7 @@ class Delete_Blog(LoginRequiredMixin,DeleteView):
 
     def get_success_url(self):
         return reverse_lazy('loginapp:user_profile')
+    
+class Blog_Details(DetailView):
+    model = Blog_Model
+    template_name = ('blogapp/blog_details.html')
