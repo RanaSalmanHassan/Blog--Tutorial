@@ -9,3 +9,9 @@ class Blog_Model(models.Model):
     description = models.TextField()
     category = models.CharField(max_length=60)
     date_added = models.DateTimeField(auto_now_add=True)
+
+class Comment(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE,related_name='user_comment')
+    blog = models.ForeignKey(Blog_Model,on_delete=models.CASCADE,related_name='blog_comment')
+    comment = models.CharField(max_length=100)
+    uploaded_date = models.DateTimeField(auto_now_add=True)

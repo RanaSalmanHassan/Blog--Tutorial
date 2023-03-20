@@ -54,15 +54,35 @@ Blog Details
 
 <div class="main-div">
     <div class="heading-div">
-        <span class="title">{{object.title}}</span>
-        <span class="category">Category : <span class="category-span">{{object.category}}</span></span>
-        <span class="date">Date Published : <span class="date_added">{{object.date_added}}</span></span>
+        <span class="title">{{blog_model.title}}</span>
+        <span class="category">Category : <span class="category-span">{{blog_model.category}}</span></span>
+        <span class="date">Date Published : <span class="date_added">{{blog_model.date_added}}</span></span>
     </div>
     <div class="body-div">
-        <img src="/media/{{object.image}}" class="image">
-        <span>{{object.description}}</span>
+        <img src="/media/{{blog_model.image}}" class="image">
+        <span>{{blog_model.description}}</span>
 
     </div>
 
+</div>
+
+<div class="form-div">
+    <form method="post">
+        {%csrf_token%}
+        {{form.as_p}}
+        <button type="submit" class="btn btn-outline-success">Comment!</button>
+    </form>
+
+</div>
+
+<div class="comments_div">
+    {%for comment in comments%}
+        <div style="display: flex; flex-direction: column; justify-content: flex-start;">
+            <h3>{{comment.user.username}} &nbsp; <span style="color: gray;">{{comment.uploaded_date}}</span></h3>
+            <p>{{comment.comment}}</p>
+        </div>
+    {%empty%}
+    <h1>No Comments In Here!</h1>
+    {%endfor%}
 </div>
 {% endblock bodyblock %}

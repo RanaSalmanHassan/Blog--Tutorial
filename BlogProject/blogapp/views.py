@@ -1,10 +1,10 @@
 from django.shortcuts import render,HttpResponse
 from django.urls import reverse_lazy
-from .forms import Create_Blog_Form
+from .forms import Create_Blog_Form,Create_Comment_Form
 from django.contrib.auth.decorators import login_required
 from django.views.generic import UpdateView,DeleteView,DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Blog_Model
+from .models import Blog_Model,Comment
 # Create your views here.
 @login_required(login_url='loginapp:login')
 def Create_Blog(request):
@@ -36,6 +36,23 @@ class Delete_Blog(LoginRequiredMixin,DeleteView):
     def get_success_url(self):
         return reverse_lazy('loginapp:user_profile')
     
-class Blog_Details(DetailView):
-    model = Blog_Model
-    template_name = ('blogapp/blog_details.html')
+def Blog_Details(request,pk):
+    blog_model = Blog_Model.objects.get(pk=pk)
+    form = Create_Comment_Form()
+    current_user = request.user
+    comments = Comment.objects.filter(blog=blog_model)
+    if current_user.is_authenticated:
+
+        if request.method == 'POST':
+            form = Create_Comment_Form(request.POST)
+            if form.is_valid():
+                form_instance = form.save(commit=False)
+                form_instance.user = request.user
+                form_instance.blog = blog_model
+                form_instance.save()
+                return HttpResponse('Congratulations! Your Comment Is Published!')
+        dict = {'form':form,'blog_model':blog_model,'comments':comments}
+        return render(request,'blogapp/blog_details.html',dict)
+    else:
+        dict = {'blog_model':blog_model,'comments':comments}
+        return render(request,'blogapp/blog_details.html',dict)

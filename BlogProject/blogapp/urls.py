@@ -5,5 +5,5 @@ urlpatterns = [
     path('create_blog',views.Create_Blog,name='create_blog'),
     path('edit_blog/<pk>',views.Edit_Blog.as_view(),name='edit_blog'), 
     path('delete_blog/<pk>',views.Delete_Blog.as_view(),name='delete_blog'), 
-    path('blog_details/<pk>',views.Blog_Details.as_view(),name='blog_details'), 
+    path('blog_details/<pk>',views.Blog_Details,name='blog_details'), 
 ]
