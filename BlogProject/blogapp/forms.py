@@ -1,7 +1,6 @@
 from django import forms
 from .models import Blog_Model,Comment
-from django.forms import ModelForm, TextInput, EmailInput
-
+from django.forms import TextInput
 class Create_Blog_Form(forms.ModelForm):
     class Meta:
         model = Blog_Model
@@ -13,8 +12,8 @@ class Create_Comment_Form(forms.ModelForm):
         exclude = ('user','blog',)
 
         widgets = {
-            'comment': TextInput(attrs={
-                'style': 'border: none; border-bottom:1px solid gray; width:300px;',
-                'placeholder': 'Enter Commment',
-
-                })}
+            "comment" : TextInput(attrs={
+            'style' : 'border:none; border-bottom:2px solid lightgray',
+            'placeholder' : 'Enter Comment'
+            })
+        }
