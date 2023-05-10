@@ -15,3 +15,8 @@ class Comment(models.Model):
     blog = models.ForeignKey(Blog_Model,on_delete=models.CASCADE,related_name='blog_comment')
     comment = models.CharField(max_length=100)
     uploaded_date = models.DateTimeField(auto_now_add=True)
+
+
+class Like(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE,related_name='liked_user')
+    blog = models.ForeignKey(Blog_Model,on_delete=models.CASCADE,related_name='liked_blog')

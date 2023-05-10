@@ -5,7 +5,7 @@ Blog Details
 {% endblock titleblock %}
 
 {% block bodyblock %}
-
+<script src="https://kit.fontawesome.com/4afee10683.js" crossorigin="anonymous"></script>
 <style>
     .main-div {
         display: flex;
@@ -88,6 +88,23 @@ Blog Details
         margin-top: 40px;
         margin-bottom: 25px;
     }
+
+    .like_div i {
+        font-size: 50px;
+
+
+    }
+
+    .like_div {
+        margin: 0 200px;
+    }
+
+    .like_div h4 {
+        font-size: 25px;
+        color: black;
+        font-weight: 500;
+        font-style: italic;
+    }
 </style>
 
 <div class="main-div">
@@ -99,9 +116,29 @@ Blog Details
     <div class="body-div">
         <img src="/media/{{blog_model.image}}" class="image">
         <span>{{blog_model.description}}</span>
-
     </div>
 
+    {%if user.is_authenticated%}
+    {%if has_liked%}
+    <div class="like_div">
+        <form action="{%url 'blogapp:like_blog' pk=blog_model.pk%}" method="post">
+            {%csrf_token%}
+            <button type="submit" value="like" name="like" id="like"><i class="fa-solid fa-heart"></i></button>
+        </form>
+        <h4>Likes : {{liked_count}}</h4>
+    </div>
+
+    {%else%}
+    <div class="like_div">
+        <form action="{%url 'blogapp:like_blog' pk=blog_model.pk%}" method="post">
+            {%csrf_token%}
+            <button type="submit" value="like" name="like" id="like"><i class="fa-regular fa-heart"></i></button>
+        </form>
+        <h4>Likes : {{liked_count}}</h4>
+    </div>
+
+    {%endif%}
+    {%endif%}
 </div>
 
 
@@ -150,13 +187,13 @@ Blog Details
         margin-left: 50px;
     }
 
-    form {
+    .form_div form {
         display: flex;
         gap: 10px;
         align-items: center;
     }
 
-    form button {
+    .form_div form button {
         padding: 8px;
         background-color: turquoise;
         border-radius: 5px;

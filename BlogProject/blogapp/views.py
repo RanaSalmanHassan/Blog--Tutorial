@@ -4,7 +4,7 @@ from .forms import Create_Blog_Form,Create_Comment_Form
 from django.contrib.auth.decorators import login_required
 from django.views.generic import UpdateView,DeleteView,DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Blog_Model,Comment
+from .models import Blog_Model,Comment,Like
 # Create your views here.
 @login_required(login_url='loginapp:login')
 def Create_Blog(request):
@@ -56,3 +56,19 @@ def Blog_Details(request,pk):
     else:
         dict = {'blog_model':blog_model,'comments':comments}
         return render(request,'blogapp/blog_details.html',dict)
+    
+
+
+@login_required
+def like_blog(request,pk):
+    blog_model = Blog_Model.objects.get(pk=pk)
+    like = Like.objects.filter(user=request.user,blog=blog_model).first()
+    if like:
+        like.delete()
+        has_liked = False
+    else:
+        Like.objects.create(user=request.user,blog=blog_model)
+        has_liked = True
+    liked_count = Like.objects.filter(blog=blog_model).count()
+    context= {'has_liked':has_liked,'blog_model':blog_model,'liked_count':liked_count}
+    return render(request,'blogapp/blog_details.html',context)
