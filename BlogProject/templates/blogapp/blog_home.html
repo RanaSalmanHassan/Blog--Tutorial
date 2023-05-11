@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+
+{%block titleblock%}
+Ultra Blogger
+{%endblock titleblock%}
+
+{%block bodyblock%}
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
+    /* Hero Section  */
+    .hero {
+        background-image: url('media/extra_pics/hd_background.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 850px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .text-center {
+        background-color: rgb(47, 46, 47);
+        width: 800px;
+        line-height: normal;
+        font-family: "Roboto", sans-serif;
+        font-weight: 700;
+        font-style: italic;
+    }
+
+    .text-center h1 {
+        color: white;
+        font-size: 89px;
+        text-align: center;
+    }
+
+    .text-center p {
+        font-size: 21px;
+        color: #B3B3B3;
+        text-align: center;
+    }
+
+    /* Card Section  */
+    .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        grid-template-rows: repeat(2, 1fr);
+        gap: 10px;
+        margin: 100px;
+    }
+
+    .card {
+        border: 2px solid lightgray;
+        font-family: 'Roboto', sans-serif;
+        width: 362px;
+    }
+
+    .card_image img {
+        height: 168.75px;
+        object-fit: cover;
+        width: 100%;
+        transition: transform ease-in 0.3s;
+    }
+
+    .card:hover .card_image img {
+        transform: scale(0.95);
+        transition: transform ease-in 0.3s;
+
+    }
+
+    .card_desc_heading {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        margin: 20px 15px;
+    }
+
+    .desc_heading_img img {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+    }
+
+    .desc_heading_rest {
+        font-size: 12px;
+        color: #4b4848;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .card_desc_desc {
+        margin: 0px 15px;
+    }
+
+    .card_desc_desc p {
+        color: #2f2e2e;
+        font-size: 18px;
+    }
+</style>
+
+
+<section class="hero">
+    <div class="text-center">
+        <h1>Ultra Blogger</h1>
+        <p>Modern Blogging Hub!</p>
+    </div>
+</section>
+
+<section class="cards">
+    {%for blog in all_blogs%}
+    <div class="card">
+        <div class="card_image"><a href="{%url 'blogapp:blog_details' pk=blog.pk%}">
+                <img src="{{blog.image.url}}" alt="Blog Image"></a></div>
+
+        <div class="card_desc">
+            <div class="card_desc_heading">
+                <div class="desc_heading_img">
+                    {%if blog.author.user_profile.profile_pic%}
+                    <img src="{{blog.author.user_profile.profile_pic}}" alt="User Profile Pic">
+                    {%else%}
+                    <img src="media/profile_pics/user.png" alt="User Image">
+                    {%endif%}
+                </div>
+                <div class="desc_heading_rest">
+                    <div>{{blog.author}}</div>
+                    <div>{{blog.date_added}}</div>
+                </div>
+            </div>
+            <div class="card_desc_desc">
+                <p>{{blog.title}}</p>
+            </div>
+        </div>
+        <hr class="divider">
+
+    </div>
+    {%endfor%}
+</section>
+{%endblock bodyblock%}

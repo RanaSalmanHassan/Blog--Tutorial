@@ -6,6 +6,13 @@ from django.views.generic import UpdateView,DeleteView,DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Blog_Model,Comment,Like
 # Create your views here.
+
+def blog_home(request):
+    all_blogs = Blog_Model.objects.all()
+    context = {'all_blogs':all_blogs}
+    return render(request,'blogapp/blog_home.html',context)
+
+
 @login_required(login_url='loginapp:login')
 def Create_Blog(request):
     form = Create_Blog_Form()
