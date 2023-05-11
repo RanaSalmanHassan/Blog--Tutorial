@@ -53,7 +53,7 @@ Ultra Blogger
 
     .card {
         border: 2px solid lightgray;
-        font-family: 'Roboto', sans-serif;
+        font-family: 'Roboto Condensed', sans-serif;
         width: 362px;
     }
 
@@ -99,6 +99,64 @@ Ultra Blogger
         color: #2f2e2e;
         font-size: 18px;
     }
+
+    .card_footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 10px 15px;
+    }
+
+    .divider {
+        margin: 0px 15px;
+    }
+
+    /* Footer Section  */
+
+    footer {
+        display: flex;
+        flex-direction: column;
+        background-color: rgb(47, 46, 46);
+        color: white;
+        padding-top: 70px;
+    }
+
+    .icons {
+        font-size: 35px;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        transition: 0.1s ease-in;
+        cursor: pointer;
+    }
+
+    .footer_text {
+        font-size: 20px;
+        text-align: center;
+        padding-top: 30px;
+        font-weight: 600;
+        font-family: 'Roboto Condensed', sans-serif;
+    }
+
+    .icons .fa-twitter:hover {
+        color: rgb(29, 161, 242);
+    }
+
+    .icons .fa-linkedin-in:hover {
+        color: #0072b1;
+    }
+
+    .icons .fa-facebook-f:hover {
+        color: #4267b2;
+    }
+
+    .icons .fa-instagram:hover {
+        color: #C13584;
+    }
+
+    .icons .fa-youtube:hover {
+        color: #FF0000;
+    }
 </style>
 
 
@@ -134,8 +192,34 @@ Ultra Blogger
             </div>
         </div>
         <hr class="divider">
-
+        <div class="card_footer">
+            <div class="comment">
+                <i class="fa-regular fa-comment"></i>
+                <span>{{blog.blog_comment.count}}</span>
+            </div>
+            <div class="likes">
+                <span>{{blog.liked_blog.count}}</span>
+                <i class="fa-regular fa-heart" style="color: red;"></i>
+            </div>
+        </div>
     </div>
     {%endfor%}
 </section>
+
+<footer>
+    <div class="icons">
+        <i class="fa-brands fa-twitter"></i>
+        &#47;
+        <i class="fa-brands fa-linkedin-in"></i>
+        &#47;
+        <i class="fa-brands fa-facebook-f"></i>
+        &#47;
+        <i class="fa-brands fa-instagram"></i>
+        &#47;
+        <i class="fa-brands fa-youtube"></i>
+    </div>
+    <div class="footer_text">
+        &#x2022; 2023 by Ultra Blogger, Powered and Created by WEB DUDE
+    </div>
+</footer>
 {%endblock bodyblock%}
