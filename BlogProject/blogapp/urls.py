@@ -8,4 +8,5 @@ urlpatterns = [
     path('delete_blog/<pk>',views.Delete_Blog.as_view(),name='delete_blog'), 
     path('blog_details/<pk>',views.Blog_Details,name='blog_details'), 
     path('like_blog/<pk>',views.like_blog,name='like_blog'), 
+    path('search_blogs',views.search_blogs,name='search_blogs'), 
 ]

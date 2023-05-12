@@ -79,3 +79,14 @@ def like_blog(request,pk):
     liked_count = Like.objects.filter(blog=blog_model).count()
     context= {'has_liked':has_liked,'blog_model':blog_model,'liked_count':liked_count}
     return render(request,'blogapp/blog_details.html',context)
+
+def search_blogs(request):
+    searched_query = request.GET.get('search')
+    searched_results = Blog_Model.objects.filter(title__icontains= searched_query)
+    searched_results_count = Blog_Model.objects.filter(title__icontains= searched_query).count()
+    context = {
+        "searched_results":searched_results,
+        "searched_query":searched_query,
+        "searched_results_count":searched_results_count
+    }
+    return render(request,'blogapp/search.html',context)

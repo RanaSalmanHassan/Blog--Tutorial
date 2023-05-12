@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+
+{% block titleblock %}
+
+Search Resulsts
+{% endblock titleblock %}
+
+{% block bodyblock %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
+    .search_div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 30px 0px;
+        justify-content: center;
+    }
+
+    /* INPUT DIV STYLING  */
+    .input_div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 5vh;
+        border: 1px solid gray;
+    }
+
+    h2 {
+        font-family: 'Roboto Condensed', sans-serif;
+        letter-spacing: 2px;
+        font-size: 40px;
+        margin-bottom: 60px;
+    }
+
+    input {
+        width: 60vw;
+        padding: 7px 0px;
+        border: none;
+        text-align: start;
+    }
+
+    input:focus {
+        outline: none;
+    }
+
+    input::placeholder {
+        font-size: 20px;
+        font-family: 'Roboto Condensed', sans-serif;
+    }
+
+    .form_button {
+        border: none;
+        margin-right: 5px;
+    }
+
+    /* SEARCHED INFO STYLING */
+
+    .results {
+        font-size: 20px;
+        font-family: 'Roboto Condensed', sans-serif;
+        margin: 15px 0px;
+    }
+
+    .searched_results {
+        display: flex;
+        align-items: center;
+        gap: 5vw;
+        margin: 30px 0px;
+    }
+
+    .searched_results:hover .search_image img {
+        transform: scale(0.95);
+        transition: transform ease-in-out 0.3s;
+    }
+
+    .search_image img {
+        transition: transform ease-in-out 0.3s;
+        width: 176px;
+        height: 124px;
+        object-fit: cover;
+        object-position: 50% 50%;
+    }
+
+    .search_rest a {
+        text-decoration: none;
+    }
+
+    .search_rest h3 {
+        font-size: 20px;
+        font-style: italic;
+        color: rgb(47, 46, 47);
+    }
+
+    .search_rest h3:hover {
+        text-decoration: underline;
+    }
+
+    .search_rest p {
+        font-size: 14px;
+        color: rgb(47, 46, 47);
+        width: 40vw;
+        word-wrap: break-word;
+    }
+</style>
+
+
+<div class="search_div">
+    <h2>Search Results</h2>
+    <div class="input_div">
+        <button class="form_button" form="search_form"><i class="fa-solid fa-magnifying-glass"></i></button>
+        <form action="{%url 'blogapp:search_blogs'%}" class="search_form" id="search_form">
+            <input type="search" name="search" id="search" placeholder="Search...">
+        </form>
+    </div>
+
+    <div class="searched_info">
+        <p class="results">{{searched_results_count}} found for {{searched_query}}</p>
+        {%for search in searched_results%}
+        <div class="searched_results">
+            <div class="search_image">
+                <img src="{{search.image.url}}" alt="Search Image">
+            </div>
+            <div class="search_rest">
+                <a href="{%url 'blogapp:blog_details' pk=search.pk%}">
+                    <h3>{{search.title}}</h3>
+                </a>
+                <p>{{search.description|truncatewords:35}}</p>
+            </div>
+        </div>
+        {%endfor%}
+    </div>
+</div>
+
+{% endblock bodyblock %}
